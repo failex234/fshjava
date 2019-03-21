@@ -18,10 +18,18 @@ JNIEXPORT jboolean JNICALL Java_me_felixnaumann_reflection_Utils_Native_isAdmini
 /*
  * Class:     me_felixnaumann_reflection_Utils_Native
  * Method:    changeWorkingDirectory
- * Signature: (Ljava/lang/String;)Z
+ * Signature: (Ljava/lang/String;)I
  */
 JNIEXPORT jint JNICALL Java_me_felixnaumann_reflection_Utils_Native_changeWorkingDirectory
   (JNIEnv *, jclass, jstring);
+
+/*
+ * Class:     me_felixnaumann_reflection_Utils_Native
+ * Method:    getWorkingDirectory
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_me_felixnaumann_reflection_Utils_Native_getWorkingDirectory
+  (JNIEnv *, jclass);
 
 #ifdef __cplusplus
 }

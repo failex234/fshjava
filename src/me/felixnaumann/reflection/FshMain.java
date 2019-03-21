@@ -13,11 +13,6 @@ public class FshMain {
     public static HashMap<String, String> vars;
 
     public static void main(String[] args) {
-        System.out.println(System.getProperty("java.library.path"));
-        System.out.println(System.getProperty("user.dir"));
-        //System.out.println(Native.changeWorkingDirectory("C:\\Users\\fnauman1"));
-        FileUtils.setWorkingDirectory("..");
-        System.out.println(System.getProperty("user.dir"));
         klasse = new Commands();
         vars = new HashMap<>();
         vars.put("PATH", "/bin:/usr/bin:/sbin:/usr/sbin");
