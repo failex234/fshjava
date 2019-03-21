@@ -40,8 +40,7 @@ JNIEXPORT jboolean JNICALL Java_me_felixnaumann_reflection_Utils_Native_isAdmini
 
 JNIEXPORT jint JNICALL Java_me_felixnaumann_reflection_Utils_Native_changeWorkingDirectory(JNIEnv *env, jclass clazz, jstring dest) {
 	char *destination = (*env)->GetStringUTFChars(env, dest, 0);
-	char *buf = malloc(sizeof(char) * 512);
-	
+
 	chdir(destination);
 	
 	if (errno == EACCES) {
@@ -52,8 +51,7 @@ JNIEXPORT jint JNICALL Java_me_felixnaumann_reflection_Utils_Native_changeWorkin
 		return -3;
 	}
 	
-	free(buf);
-	
+
 	return 1;
 }
 

@@ -2,3 +2,4 @@
 out/
 *.iml
 fshutils.dll
+fshutils.so

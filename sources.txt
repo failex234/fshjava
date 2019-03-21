@@ -1,0 +1,7 @@
+./src/me/felixnaumann/reflection/Commands.java
+./src/me/felixnaumann/reflection/Debug/DebuggingTools.java
+./src/me/felixnaumann/reflection/Formatting/Variables.java
+./src/me/felixnaumann/reflection/FshMain.java
+./src/me/felixnaumann/reflection/General/MainShell.java
+./src/me/felixnaumann/reflection/Utils/FileUtils.java
+./src/me/felixnaumann/reflection/Utils/Native.java

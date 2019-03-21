@@ -1,5 +1,7 @@
 package me.felixnaumann.reflection.Formatting;
 
+import me.felixnaumann.reflection.Utils.GeneralUtils;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -20,15 +22,11 @@ public class Variables {
             if (System.getProperty("user.dir").equals(System.getProperty("user.home"))) {
                 rawps1 = rawps1.replace("\\w", "~");
             } else {
-                rawps1 = rawps1.replace("\\w", System.getProperty("user.dir").replace("\\", "\\\\"));
+                rawps1 = rawps1.replace("\\w", System.getProperty("user.dir"));
             }
             //rawps1.replace("\\$", UserCheck.isAdminstrator() ? "$" : "#");
             rawps1 = rawps1.replace("\\$", "#");
-            try {
-                rawps1 = rawps1.replace("\\h", InetAddress.getLocalHost().getHostName());
-            } catch (UnknownHostException e) {
-                rawps1 = rawps1.replace("\\h", "localhost");
-            }
+            rawps1 = rawps1.replace("\\h", GeneralUtils.getHostname());
             return rawps1;
         } else {
             if (vars.get(varname) != null) return vars.get(varname);

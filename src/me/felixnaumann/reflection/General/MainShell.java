@@ -1,6 +1,6 @@
 package me.felixnaumann.reflection.General;
 
-import me.felixnaumann.reflection.Commands;
+import me.felixnaumann.reflection.Debug.DebuggingTools;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -19,12 +19,15 @@ public class MainShell {
         if (line.equals("help")) {
             System.out.println("available commands: ");
             for (Method m : methods) {
+                if (m.getName().startsWith("F")) continue;
                 System.out.println(m.getName().replace("_", ""));
             }
         } else if (line.startsWith("$")) {
+            DebuggingTools.logf("printing variable %s\n", line);
             System.out.println(getVar(line));
         } else {
             if (line.contains("=")) {
+                DebuggingTools.logf("parsing variable line %s\n", line);
                 parseVarLine(line);
             } else {
                 String replaced = replaceVars(line);
