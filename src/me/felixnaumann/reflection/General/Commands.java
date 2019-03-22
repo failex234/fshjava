@@ -5,6 +5,8 @@ import me.felixnaumann.reflection.Utils.FileUtils;
 import me.felixnaumann.reflection.Utils.GeneralUtils;
 import me.felixnaumann.reflection.Utils.Native;
 
+import java.io.File;
+
 public class Commands {
 
     public int _echo(String[] args) {
@@ -99,6 +101,19 @@ public class Commands {
         unamestring = unamestring.replaceAll("^\\s", "");
 
         System.out.println(unamestring);
+        return 0;
+    }
+
+    public int _ls(String[] args) {
+        if (args.length == 0) {
+            File currdir = new File(".");
+            File[] allfiles = currdir.listFiles();
+            for (File file : allfiles) {
+                System.out.print(file.getName() + " ");
+            }
+            System.out.println();
+            return 0;
+        }
         return 0;
     }
 

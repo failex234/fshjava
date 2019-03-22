@@ -1,7 +1,10 @@
 package me.felixnaumann.reflection.Formatting;
 
 import me.felixnaumann.reflection.Utils.GeneralUtils;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -87,5 +90,31 @@ public class Variables {
         }
         logf("Replaced with vars: %s\n", temp);
         return temp;
+    }
+
+    public static String applyWildcardFilter(String line) {
+        String[] args = line.split(" ");
+        String nline = "";
+        if (args == null || args.length == 0) return line;
+
+        nline += args[0] + " ";
+
+        File currdir = new File(".");
+        FileFilter fileFilter;
+
+        for (int i = 1; i < args.length; i++) {
+            String arg = args[i];
+            fileFilter = new WildcardFileFilter(arg);
+
+            File[] files = currdir.listFiles(fileFilter);
+            if (files == null || files.length == 0) {
+                nline += arg + " ";
+            } else {
+                for (File file : files) {
+                    nline += file.getName() + " ";
+                }
+            }
+        }
+        return nline;
     }
 }

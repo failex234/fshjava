@@ -1,6 +1,7 @@
 package me.felixnaumann.reflection.General;
 
 import me.felixnaumann.reflection.Debug.DebuggingTools;
+import me.felixnaumann.reflection.Formatting.Variables;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -31,6 +32,9 @@ public class MainShell {
                 parseVarLine(line);
             } else {
                 String replaced = replaceVars(line);
+                replaced = Variables.applyWildcardFilter(replaced);
+                DebuggingTools.logf("File matches: %s\n", replaced);
+
                 try {
                     String[] args = replaced.split(" ");
 
