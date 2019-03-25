@@ -18,7 +18,7 @@ fshutils.dll:
 	$(CC) -o fshutils.dll -I ${JAVA_HOME}/include -I ${JAVA_HOME}/include/win32 -shared -W fshutils.c
 	
 fshutils.so:
-	$(CC) -o fshutils.so -I ${JAVA_HOME}/include -I ${JAVA_HOME}/include/win32 -shared -W fshutils.c
+	$(CC) -o fshutils.so -I ${JAVA_HOME}/include -I ${JAVA_HOME}/include/linux -shared -W fshutils.c
 	
 checkjava:
 ifndef JAVA_HOME
