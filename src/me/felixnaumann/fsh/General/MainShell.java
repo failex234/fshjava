@@ -31,6 +31,7 @@ public class MainShell {
                 DebuggingTools.logf("parsing variable line %s\n", line);
                 parseVarLine(line);
             } else {
+                //TODO: put all code into launchBuiltInProgram in GeneralUtils
                 String replaced = replaceVars(line);
                 replaced = Variables.applyWildcardFilter(replaced);
                 DebuggingTools.logf("File matches: %s\n", replaced);
@@ -59,7 +60,9 @@ public class MainShell {
                     }
 
                     if (!methodfound) {
-                        System.err.println("fsh: command not found");
+                        //System.err.println("fsh: command not found");
+                        //TODO: Fix arguments in quotes
+                        ProgramLauncher.findAndLaunch(line.split(" "));
                     }
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();

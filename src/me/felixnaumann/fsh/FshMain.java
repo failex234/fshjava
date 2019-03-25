@@ -2,6 +2,7 @@ package me.felixnaumann.fsh;
 
 import me.felixnaumann.fsh.Formatting.Variables;
 import me.felixnaumann.fsh.General.Commands;
+import me.felixnaumann.fsh.Utils.GeneralUtils;
 
 import java.util.*;
 
@@ -9,7 +10,7 @@ import static me.felixnaumann.fsh.General.MainShell.interpretLine;
 
 public class FshMain {
 
-    private static final String VERSION = "0.3.2";
+    private static final String VERSION = "0.3.4";
 
     public static Commands klasse;
     public static HashMap<String, String> vars;
@@ -40,7 +41,11 @@ public class FshMain {
         }
         klasse = new Commands();
         vars = new HashMap<>();
-        vars.put("PATH", "/bin:/usr/bin:/sbin:/usr/sbin");
+        if (GeneralUtils.getOS().equals("nix")) {
+            vars.put("PATH", "/bin:/usr/bin:/sbin:/usr/sbin");
+        } else {
+            vars.put("PATH", "C:\\Windows;C:\\Windows\\System32");
+        }
         vars.put("PS1", "[\\u@\\h \\w]\\$ ");
 
         String input = "";

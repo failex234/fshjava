@@ -3,6 +3,8 @@ package me.felixnaumann.fsh.Utils;
 import me.felixnaumann.fsh.Debug.DebuggingTools;
 
 public class FileUtils {
+	
+	public static String[] windowsFileExtensions = new String[]{"com", "exe", "bat", "msi", "scr"};
 
     public static void setWorkingDirectory(String wd) {
         String currdir = Native.getWorkingDirectory();
