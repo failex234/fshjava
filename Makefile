@@ -22,7 +22,7 @@ fshutils.so:
 	
 checkjava:
 ifndef JAVA_HOME
-	@echo "JAVA_HOME is not set. Please set JAVA_HOME to compile!"
+	$(error JAVA_HOME is not set. Please set JAVA_HOME to compile!)
 endif
 
 clean:
