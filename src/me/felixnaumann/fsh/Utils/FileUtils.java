@@ -1,6 +1,6 @@
-package me.felixnaumann.reflection.Utils;
+package me.felixnaumann.fsh.Utils;
 
-import me.felixnaumann.reflection.Debug.DebuggingTools;
+import me.felixnaumann.fsh.Debug.DebuggingTools;
 
 public class FileUtils {
 

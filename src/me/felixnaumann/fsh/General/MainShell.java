@@ -1,14 +1,14 @@
-package me.felixnaumann.reflection.General;
+package me.felixnaumann.fsh.General;
 
-import me.felixnaumann.reflection.Debug.DebuggingTools;
-import me.felixnaumann.reflection.Formatting.Variables;
+import me.felixnaumann.fsh.Debug.DebuggingTools;
+import me.felixnaumann.fsh.Formatting.Variables;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-import static me.felixnaumann.reflection.Formatting.Variables.*;
-import static me.felixnaumann.reflection.FshMain.klasse;
+import static me.felixnaumann.fsh.Formatting.Variables.*;
+import static me.felixnaumann.fsh.FshMain.klasse;
 
 public class MainShell {
     public static int lastRet = 0;

@@ -1,4 +1,4 @@
-package me.felixnaumann.reflection.Utils;
+package me.felixnaumann.fsh.Utils;
 
 public class Native {
 

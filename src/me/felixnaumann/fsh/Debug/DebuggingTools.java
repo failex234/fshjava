@@ -1,6 +1,6 @@
-package me.felixnaumann.reflection.Debug;
+package me.felixnaumann.fsh.Debug;
 
-import me.felixnaumann.reflection.FshMain;
+import me.felixnaumann.fsh.FshMain;
 
 public class DebuggingTools {
     private static final boolean DEBUG = FshMain.debug;

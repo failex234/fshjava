@@ -1,11 +1,11 @@
-package me.felixnaumann.reflection;
+package me.felixnaumann.fsh;
 
-import me.felixnaumann.reflection.Formatting.Variables;
-import me.felixnaumann.reflection.General.Commands;
+import me.felixnaumann.fsh.Formatting.Variables;
+import me.felixnaumann.fsh.General.Commands;
 
 import java.util.*;
 
-import static me.felixnaumann.reflection.General.MainShell.interpretLine;
+import static me.felixnaumann.fsh.General.MainShell.interpretLine;
 
 public class FshMain {
 

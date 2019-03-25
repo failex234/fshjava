@@ -1,16 +1,15 @@
-package me.felixnaumann.reflection.Formatting;
+package me.felixnaumann.fsh.Formatting;
 
-import me.felixnaumann.reflection.Utils.GeneralUtils;
+import me.felixnaumann.fsh.Utils.GeneralUtils;
+import me.felixnaumann.fsh.Utils.Native;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
-import static me.felixnaumann.reflection.General.MainShell.lastRet;
-import static me.felixnaumann.reflection.FshMain.vars;
-import static me.felixnaumann.reflection.Debug.DebuggingTools.*;
+import static me.felixnaumann.fsh.General.MainShell.lastRet;
+import static me.felixnaumann.fsh.FshMain.vars;
+import static me.felixnaumann.fsh.Debug.DebuggingTools.*;
 
 public class Variables {
     private static final String VAR_REPLACE_EXPR = "^\\$%s$|^\\$%s\\s|\\s\\$%s$|\\s\\$%s\\s|\\$\\(%s\\)";
@@ -27,7 +26,7 @@ public class Variables {
             } else {
                 rawps1 = rawps1.replace("\\w", System.getProperty("user.dir"));
             }
-            //rawps1.replace("\\$", UserCheck.isAdminstrator() ? "$" : "#");
+            rawps1.replace("\\$", Native.isAdministrator() ? "$" : "#");
             rawps1 = rawps1.replace("\\$", "#");
             rawps1 = rawps1.replace("\\h", GeneralUtils.getHostname());
             return rawps1;

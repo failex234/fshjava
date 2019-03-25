@@ -1,4 +1,4 @@
-package me.felixnaumann.reflection.Enums;
+package me.felixnaumann.fsh.Enums;
 
 public enum CommandDescriptions {
 

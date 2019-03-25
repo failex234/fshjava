@@ -1,4 +1,4 @@
-package me.felixnaumann.reflection.Utils;
+package me.felixnaumann.fsh.Utils;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

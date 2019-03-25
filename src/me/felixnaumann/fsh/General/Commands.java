@@ -1,9 +1,9 @@
-package me.felixnaumann.reflection.General;
+package me.felixnaumann.fsh.General;
 
-import me.felixnaumann.reflection.Enums.CommandDescriptions;
-import me.felixnaumann.reflection.Utils.FileUtils;
-import me.felixnaumann.reflection.Utils.GeneralUtils;
-import me.felixnaumann.reflection.Utils.Native;
+import me.felixnaumann.fsh.Enums.CommandDescriptions;
+import me.felixnaumann.fsh.Utils.FileUtils;
+import me.felixnaumann.fsh.Utils.GeneralUtils;
+import me.felixnaumann.fsh.Utils.Native;
 
 import java.io.File;
 

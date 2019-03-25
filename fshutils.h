@@ -12,7 +12,7 @@ extern "C" {
  * Method:    isAdministrator
  * Signature: ()Z
  */
-JNIEXPORT jboolean JNICALL Java_me_felixnaumann_reflection_Utils_Native_isAdministrator
+JNIEXPORT jboolean JNICALL Java_me_felixnaumann_fsh_Utils_Native_isAdministrator
   (JNIEnv *, jclass);
 
 /*
@@ -20,7 +20,7 @@ JNIEXPORT jboolean JNICALL Java_me_felixnaumann_reflection_Utils_Native_isAdmini
  * Method:    changeWorkingDirectory
  * Signature: (Ljava/lang/String;)I
  */
-JNIEXPORT jint JNICALL Java_me_felixnaumann_reflection_Utils_Native_changeWorkingDirectory
+JNIEXPORT jint JNICALL Java_me_felixnaumann_fsh_Utils_Native_changeWorkingDirectory
   (JNIEnv *, jclass, jstring);
 
 /*
@@ -28,7 +28,7 @@ JNIEXPORT jint JNICALL Java_me_felixnaumann_reflection_Utils_Native_changeWorkin
  * Method:    getWorkingDirectory
  * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_me_felixnaumann_reflection_Utils_Native_getWorkingDirectory
+JNIEXPORT jstring JNICALL Java_me_felixnaumann_fsh_Utils_Native_getWorkingDirectory
   (JNIEnv *, jclass);
 
 #ifdef __cplusplus

@@ -8,6 +8,7 @@
 #ifdef __WIN32
 
 #include <windows.h>
+
 #else
 	
 #include <unistd.h>
@@ -34,7 +35,7 @@ int fileExists(const char *path) {
     }
 }
 
-JNIEXPORT jboolean JNICALL Java_me_felixnaumann_reflection_Utils_Native_isAdministrator(JNIEnv *env, jclass clazz) {
+JNIEXPORT jboolean JNICALL Java_me_felixnaumann_fsh_Utils_Native_isAdministrator(JNIEnv *env, jclass clazz) {
 #ifdef __WIN32
 	HANDLE hToken = NULL;
 	int isadmin = -99;
@@ -58,7 +59,7 @@ JNIEXPORT jboolean JNICALL Java_me_felixnaumann_reflection_Utils_Native_isAdmini
 #endif
 }
 
-JNIEXPORT jint JNICALL Java_me_felixnaumann_reflection_Utils_Native_changeWorkingDirectory(JNIEnv *env, jclass clazz, jstring dest) {
+JNIEXPORT jint JNICALL Java_me_felixnaumann_fsh_Utils_Native_changeWorkingDirectory(JNIEnv *env, jclass clazz, jstring dest) {
 	char *destination = (*env)->GetStringUTFChars(env, dest, 0);
 
     if (destination[0] != '.') {
@@ -84,7 +85,7 @@ JNIEXPORT jint JNICALL Java_me_felixnaumann_reflection_Utils_Native_changeWorkin
 	return 1;
 }
 
-JNIEXPORT jstring JNICALL Java_me_felixnaumann_reflection_Utils_Native_getWorkingDirectory(JNIEnv *env, jclass clazz) {
+JNIEXPORT jstring JNICALL Java_me_felixnaumann_fsh_Utils_Native_getWorkingDirectory(JNIEnv *env, jclass clazz) {
 	char *buf = malloc(sizeof(char) * 512);
 
 	errno = 0;
