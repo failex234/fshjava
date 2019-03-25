@@ -1,7 +1,29 @@
 CC=gcc
 
-win:
-	$(CC) -o fshutils.dll -I /cygdrive/c/Users/fnauman1/JDK8/include -I /cygdrive/c/Users/fnauman1/JDK8/include/win32 -shared -W fshutils.c
+.PHONY: win nix checkjava
+
+all: win nix
+
+win: checkjava
+ifeq ($(OS), Windows_NT)
+	@make fshutils.dll
+endif
 	
-nix:
-	@echo "Need to implement :("
+nix: checkjava
+ifndef OS
+	@make fshutils.so
+endif
+
+fshutils.dll:
+	$(CC) -o fshutils.dll -I ${JAVA_HOME}/include -I ${JAVA_HOME}/include/win32 -shared -W fshutils.c
+	
+fshutils.so:
+	$(CC) -o fshutils.so -I ${JAVA_HOME}/include -I ${JAVA_HOME}/include/win32 -shared -W fshutils.c
+	
+checkjava:
+ifndef JAVA_HOME
+	@echo "JAVA_HOME is not set. Please set JAVA_HOME to compile!"
+endif
+
+clean:
+	rm -f fshutils.dll fshutils.so
