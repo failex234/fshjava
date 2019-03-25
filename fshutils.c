@@ -105,3 +105,13 @@ JNIEXPORT jstring JNICALL Java_me_felixnaumann_fsh_Utils_Native_getWorkingDirect
 	
 	return ret;
 }
+
+JNIEXPORT jstring JNICALL Java_me_felixnaumann_fsh_Utils_Native_getOS(JNIEnv *env, jclass clazz) {
+	#ifdef __WIN32
+		char *os = "win";
+	#else
+		char *os = "nix";
+	#endif
+	
+	return (*env)->NewStringUTF(env, os);
+}

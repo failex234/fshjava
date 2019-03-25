@@ -16,12 +16,6 @@ public class GeneralUtils {
         }
     }
 
-    public static String getOS() {
-        //TODO: expand for more operating systems
-        if (System.getProperty("os.name").toLowerCase().contains("windows")) return "win";
-        return "nix";
-    }
-
     public static boolean isBuiltInProgram(String cmdname) {
         Method[] allmethods = Commands.class.getMethods();
         for (Method method : allmethods) {

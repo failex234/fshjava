@@ -3,6 +3,7 @@ package me.felixnaumann.fsh;
 import me.felixnaumann.fsh.Formatting.Variables;
 import me.felixnaumann.fsh.General.Commands;
 import me.felixnaumann.fsh.Utils.GeneralUtils;
+import me.felixnaumann.fsh.Utils.Native;
 
 import java.util.*;
 
@@ -41,7 +42,7 @@ public class FshMain {
         }
         klasse = new Commands();
         vars = new HashMap<>();
-        if (GeneralUtils.getOS().equals("nix")) {
+        if (Native.getOS().equals("nix")) {
             vars.put("PATH", "/bin:/usr/bin:/sbin:/usr/sbin");
         } else {
             vars.put("PATH", "C:\\Windows;C:\\Windows\\System32");
