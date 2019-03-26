@@ -8,6 +8,7 @@ import me.felixnaumann.fsh.Utils.Native;
 import java.util.*;
 
 import static me.felixnaumann.fsh.General.MainShell.interpretLine;
+import static me.felixnaumann.fsh.General.MainShell.lastRet;
 
 public class FshMain {
 
@@ -16,8 +17,10 @@ public class FshMain {
     public static Commands klasse;
     public static HashMap<String, String> vars;
     public static boolean debug = false;
+    public static String os = "";
 
     public static void main(String[] args) {
+        os = System.getProperty("file.separator").equals("/") ? "nix" : "win";
         if (args.length != 0) {
             switch (args[0]) {
                 case "--debug":
@@ -42,7 +45,7 @@ public class FshMain {
         }
         klasse = new Commands();
         vars = new HashMap<>();
-        if (Native.getOS().equals("nix")) {
+        if (os.equals("nix")) {
             vars.put("PATH", "/bin:/usr/bin:/sbin:/usr/sbin");
         } else {
             vars.put("PATH", "C:\\Windows;C:\\Windows\\System32");
@@ -57,6 +60,7 @@ public class FshMain {
 
             if (!input.equals("exit")) {
                 interpretLine(input);
+                System.out.println("Returned " + lastRet);
             }
         }
     }

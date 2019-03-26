@@ -16,15 +16,5 @@ public class GeneralUtils {
         }
     }
 
-    public static boolean isBuiltInProgram(String cmdname) {
-        Method[] allmethods = Commands.class.getMethods();
-        for (Method method : allmethods) {
-            if (method.getName().equals("_" + cmdname)) return true;
-        }
-        return false;
-    }
 
-    public static void launchBuiltinProgram(String line) {
-
-    }
 }

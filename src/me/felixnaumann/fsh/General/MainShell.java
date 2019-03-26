@@ -15,7 +15,6 @@ public class MainShell {
 
      public static void interpretLine(String line) {
         Method[] methods = Commands.class.getDeclaredMethods();
-        boolean methodfound = false;
 
         if (line.equals("help")) {
             System.out.println("available commands: ");
@@ -32,41 +31,7 @@ public class MainShell {
                 parseVarLine(line);
             } else {
                 //TODO: put all code into launchBuiltInProgram in GeneralUtils
-                String replaced = replaceVars(line);
-                replaced = Variables.applyWildcardFilter(replaced);
-                DebuggingTools.logf("File matches: %s\n", replaced);
-
-                try {
-                    String[] args = replaced.split(" ");
-
-                    for (Method m : methods) {
-                        if (m.getName().equals("_" + args[0])) {
-                            methodfound = true;
-
-                            ArrayList<String> temp = new ArrayList<>();
-                            for (int i = 1; i < args.length; i++) {
-                                temp.add(args[i]);
-                            }
-
-                            String[] newargs = new String[temp.size()];
-
-                            for (int i = 0; i < temp.size(); i++) {
-                                newargs[i] = temp.get(i);
-                            }
-
-                            lastRet = (int) m.invoke(klasse, (Object) newargs);
-                            break;
-                        }
-                    }
-
-                    if (!methodfound) {
-                        //System.err.println("fsh: command not found");
-                        //TODO: Fix arguments in quotes
-                        ProgramLauncher.findAndLaunch(line.split(" "));
-                    }
-                } catch (IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
-                }
+                CommandExecutor.launchBuiltinProgram(line, methods);
             }
         }
     }

@@ -111,6 +111,7 @@ public class Commands {
             for (File file : allfiles) {
                 System.out.print(file.getName() + " ");
             }
+
             System.out.println();
             return 0;
         }
