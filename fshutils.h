@@ -39,6 +39,14 @@ JNIEXPORT jstring JNICALL Java_me_felixnaumann_fsh_Utils_Native_getWorkingDirect
 JNIEXPORT jstring JNICALL Java_me_felixnaumann_fsh_Utils_Native_getOS
   (JNIEnv *, jclass);
 
+/*
+ * Class:     me_felixnaumann_fsh_Utils_Native
+ * Method:    clearConsole
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_me_felixnaumann_fsh_Utils_Native_clearConsole
+  (JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif

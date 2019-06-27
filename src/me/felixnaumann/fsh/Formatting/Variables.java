@@ -13,12 +13,13 @@ import static me.felixnaumann.fsh.Debug.DebuggingTools.*;
 
 public class Variables {
     private static final String VAR_REPLACE_EXPR = "^\\$%s$|^\\$%s\\s|\\s\\$%s$|\\s\\$%s\\s|\\$\\(%s\\)";
+    public static boolean dontReplace = false;
 
     public static String getVar(String var) {
         String varname = var.replace("$", "");
         if (varname.equals("@")) {
             return lastRet + "";
-        } else if (var.equals("PS1")) {
+        } else if (var.equals("PS1") && !dontReplace) {
             String rawps1 = vars.get(varname);
             rawps1 = rawps1.replace("\\u", System.getProperty("user.name"));
             if (System.getProperty("user.dir").equals(System.getProperty("user.home"))) {
@@ -31,7 +32,7 @@ public class Variables {
             rawps1 = rawps1.replace("\\h", GeneralUtils.getHostname());
             return rawps1;
         } else {
-            if (vars.get(varname) != null) return vars.get(varname);
+            if (vars.get(varname) != null) return vars.get(varname).replace("\\","\\\\\\");
             return "";
         }
     }

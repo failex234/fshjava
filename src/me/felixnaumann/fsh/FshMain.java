@@ -1,5 +1,6 @@
 package me.felixnaumann.fsh;
 
+import me.felixnaumann.fsh.Debug.DebuggingTools;
 import me.felixnaumann.fsh.Formatting.Variables;
 import me.felixnaumann.fsh.General.Commands;
 import me.felixnaumann.fsh.Utils.GeneralUtils;
@@ -55,12 +56,19 @@ public class FshMain {
         String input = "";
         Scanner scanner = new Scanner(System.in);
         while (!input.equals("exit")) {
-            System.out.print(Variables.getVar("PS1"));
-            input = scanner.nextLine();
+            try {
+                System.out.print(Variables.getVar("PS1"));
+                input = scanner.nextLine();
 
-            if (!input.equals("exit")) {
-                interpretLine(input);
-                System.out.println("Returned " + lastRet);
+                if (!input.equals("exit") && input.length() > 0) {
+                    interpretLine(input);
+                    DebuggingTools.logf("Returned %d\n",lastRet);
+                }
+            }
+            catch (NoSuchElementException ignored) {
+                //Exception will occur when program encounters a EOF (e.g. CTRL+D)
+                System.out.println();
+                System.exit(0);
             }
         }
     }

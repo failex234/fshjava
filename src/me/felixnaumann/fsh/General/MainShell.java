@@ -13,7 +13,7 @@ import static me.felixnaumann.fsh.FshMain.klasse;
 public class MainShell {
     public static int lastRet = 0;
 
-     public static void interpretLine(String line) {
+    public static void interpretLine(String line) {
         Method[] methods = Commands.class.getDeclaredMethods();
 
         if (line.equals("help")) {

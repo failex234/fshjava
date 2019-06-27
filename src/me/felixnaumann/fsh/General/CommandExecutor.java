@@ -4,7 +4,6 @@ import me.felixnaumann.fsh.Debug.DebuggingTools;
 import me.felixnaumann.fsh.Formatting.Variables;
 import me.felixnaumann.fsh.FshMain;
 import me.felixnaumann.fsh.Utils.FileUtils;
-import sun.applet.Main;
 
 import java.io.File;
 import java.io.IOException;
@@ -118,7 +117,9 @@ public class CommandExecutor {
 
     public static void launchBuiltinProgram(String line, Method[] methods) {
         boolean methodfound = false;
+        if (line.startsWith("echo")) Variables.dontReplace = true;
         String replaced = replaceVars(line);
+        if (line.startsWith("echo")) Variables.dontReplace = false;
         replaced = Variables.applyWildcardFilter(replaced);
         DebuggingTools.logf("File matches: %s\n", replaced);
 

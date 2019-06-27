@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <sys/stat.h>
+#include <string.h>
 #include "fshutils.h"
 
 #ifdef __WIN32
@@ -10,7 +11,7 @@
 #include <windows.h>
 
 #else
-	
+
 #include <unistd.h>
 #include <sys/types.h>
 
@@ -52,7 +53,7 @@ JNIEXPORT jboolean JNICALL Java_me_felixnaumann_fsh_Utils_Native_isAdministrator
 		if (isadmin) {
 			CloseHandle(hToken);
 		}
-		
+
 		return isadmin;
 #else
 	return !getuid();
@@ -72,7 +73,7 @@ JNIEXPORT jint JNICALL Java_me_felixnaumann_fsh_Utils_Native_changeWorkingDirect
 
     errno = 0;
 	chdir(destination);
-	
+
 	if (errno == EACCES) {
 		return -1;
 	} else if (errno == ENOENT) {
@@ -80,7 +81,7 @@ JNIEXPORT jint JNICALL Java_me_felixnaumann_fsh_Utils_Native_changeWorkingDirect
 	} else if (errno == ENOTDIR) {
 		return -3;
 	}
-	
+
 
 	return 1;
 }
@@ -95,14 +96,14 @@ JNIEXPORT jstring JNICALL Java_me_felixnaumann_fsh_Utils_Native_getWorkingDirect
 		} else {
 			sprintf(buf, "Unknown error with err code %d occured!", errno);
 		}
-		
+
 		jstring ret = (*env)->NewStringUTF(env, buf);
-		
+
 		return ret;
 	}
-	
+
 	jstring ret = (*env)->NewStringUTF(env, buf);
-	
+
 	return ret;
 }
 
@@ -112,6 +113,58 @@ JNIEXPORT jstring JNICALL Java_me_felixnaumann_fsh_Utils_Native_getOS(JNIEnv *en
 	#else
 		char *os = "nix";
 	#endif
-	
+
 	return (*env)->NewStringUTF(env, os);
+}
+
+JNIEXPORT void JNICALL Java_me_felixnaumann_fsh_Utils_Native_clearConsole(JNIEnv *env, jclass clazz) {
+	#ifdef __WIN32
+	//From https://docs.microsoft.com/en-us/windows/console/clearing-the-screen
+	
+	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	COORD coordScreen = { 0, 0 };    // home for the cursor 
+   	DWORD cCharsWritten;
+   	CONSOLE_SCREEN_BUFFER_INFO csbi; 
+   	DWORD dwConSize;
+
+	// Get the number of character cells in the current buffer. 
+   	if( !GetConsoleScreenBufferInfo( hConsole, &csbi )) {
+    	return;
+   	}
+
+   	dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
+
+   	// Fill the entire screen with blanks.
+   	if( !FillConsoleOutputCharacter( hConsole,        // Handle to console screen buffer 
+                                    (TCHAR) ' ',     // Character to write to the buffer
+                                    dwConSize,       // Number of cells to write 
+                                    coordScreen,     // Coordinates of first cell 
+                                    &cCharsWritten ))// Receive number of characters written 
+									{
+    	return;
+   	}
+
+   	// Get the current text attribute.
+   	if( !GetConsoleScreenBufferInfo( hConsole, &csbi )) {
+      	return;
+   	}
+
+   	// Set the buffer's attributes accordingly.
+   	if( !FillConsoleOutputAttribute( hConsole,         // Handle to console screen buffer 
+                                    csbi.wAttributes, // Character attributes to use
+                                    dwConSize,        // Number of cells to set attribute 
+                                    coordScreen,      // Coordinates of first cell 
+                                    &cCharsWritten )) // Receive number of characters written
+									{
+      	return;
+   	}
+
+   	// Put the cursor at its home coordinates.
+   	SetConsoleCursorPosition( hConsole, coordScreen );
+
+	#else
+		puts("\033[H\033[2J");
+		fflush(stdout);
+	#endif
 }

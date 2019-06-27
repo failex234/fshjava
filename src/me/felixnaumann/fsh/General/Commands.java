@@ -34,6 +34,8 @@ public class Commands {
         return 1;
     }
 
+    public int _true(String[] args) { return 0;}
+
     public int _pwd(String[] args) {
         System.out.println(Native.getWorkingDirectory());
         return 0;
@@ -50,9 +52,8 @@ public class Commands {
     }
 
     public int _cls(String[] args) {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-
+        //Let the native function handle the console clearing
+        Native.clearConsole();
         return 0;
     }
 
@@ -105,16 +106,27 @@ public class Commands {
     }
 
     public int _ls(String[] args) {
+        File currdir = null;
         if (args.length == 0) {
-            File currdir = new File(".");
+            currdir = new File(".");
+        } else if (args.length == 1){
+            currdir = new File(args[0]);
+        } else {
+            for (String file : args) {
+                _ls(new String[]{file});
+            }
+            return 0;
+        }
+        if (currdir.isDirectory()) {
             File[] allfiles = currdir.listFiles();
             for (File file : allfiles) {
                 System.out.print(file.getName() + " ");
             }
-
-            System.out.println();
-            return 0;
+        } else if (currdir.exists()) {
+            System.out.printf(currdir.getPath());
         }
+
+        System.out.println();
         return 0;
     }
 

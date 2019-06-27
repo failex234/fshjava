@@ -1,5 +1,6 @@
 .idea/
 out/
+.vscode/
 *.iml
 fshutils.dll
 fshutils.so
