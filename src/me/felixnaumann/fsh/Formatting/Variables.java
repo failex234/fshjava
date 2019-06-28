@@ -78,6 +78,10 @@ public class Variables {
             val = allelems[1];
         }
 
+        //Just remove the quotes since quotes are not mandatory for variable setting
+        if (val.contains("\"")) {
+            val = val.replace("\"", "");
+        }
         setVar(varname, val);
     }
 

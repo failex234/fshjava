@@ -4,6 +4,7 @@ import me.felixnaumann.fsh.Debug.DebuggingTools;
 import me.felixnaumann.fsh.Formatting.Variables;
 import me.felixnaumann.fsh.FshMain;
 import me.felixnaumann.fsh.Utils.FileUtils;
+import me.felixnaumann.fsh.Utils.GeneralUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -124,7 +125,7 @@ public class CommandExecutor {
         DebuggingTools.logf("File matches: %s\n", replaced);
 
         try {
-            String[] args = replaced.split(" ");
+            String[] args = GeneralUtils.removeEscapeSlashes(GeneralUtils.getArgs(replaced));
 
             for (Method m : methods) {
                 if (m.getName().equals("_" + args[0])) {
