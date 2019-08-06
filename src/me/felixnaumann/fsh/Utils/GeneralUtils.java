@@ -44,7 +44,7 @@ public class GeneralUtils {
     }
 
     public static String[] getArgs(String line) {
-        if (!chechForQuotes(line)) {
+            if (!chechForQuotes(line)) {
             return line.split(" ");
         } else {
             ArrayList<String> tempArr = new ArrayList<>();

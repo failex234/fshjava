@@ -1,5 +1,6 @@
 package me.felixnaumann.fsh.General;
 
+import me.felixnaumann.fsh.Debug.DebuggingTools;
 import me.felixnaumann.fsh.Enums.CommandDescriptions;
 import me.felixnaumann.fsh.Utils.FileUtils;
 import me.felixnaumann.fsh.Utils.GeneralUtils;
@@ -130,11 +131,43 @@ public class Commands {
         return 0;
     }
 
+    public int _debug(String[] args) {
+        boolean newstatus;
+        if (args.length == 0) {
+            newstatus = DebuggingTools.toggleDebug();
+        } else {
+            String statarg = args[0].toLowerCase();
+            if (statarg.matches("on|enable|start|true|yes")) {
+                DebuggingTools.setDebug(true);
+                newstatus = true;
+            } else if (statarg.matches("off|disable|stop|false|no")) {
+                DebuggingTools.setDebug(false);
+                newstatus = false;
+            } else if (statarg.equals("--help")) {
+                F_usage("debug");
+                return 0;
+            } else {
+                System.err.println("invalid option. help with --help");
+                return 1;
+            }
+        }
+
+        if (newstatus) {
+            System.out.println("Debug mode enabled");
+        } else {
+            System.out.println("Debug mode disabled");
+        }
+        return 0;
+    }
+
     public void F_usage(String prgname) {
         String[] descs;
         switch (prgname) {
             case "uname":
                 descs = CommandDescriptions.UNAME_DESC.getDescription();
+                break;
+            case "debug":
+                descs = CommandDescriptions.DEBUG_DESC.getDescription();
                 break;
                 default:
                     descs = new String[]{};

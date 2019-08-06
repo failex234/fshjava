@@ -60,7 +60,11 @@ public class CommandExecutor {
                 e.printStackTrace();
             }
         } else {
-            String[] allpaths = FshMain.vars.get("PATH").split(";");
+            String[] allpaths;
+            if (FshMain.os.equals("nix"))
+                allpaths = FshMain.vars.get("PATH").split(":");
+            else
+                allpaths = FshMain.vars.get("PATH").split(";");
 
             if (hasExtension(programname)) {
                 for (String path : allpaths) {
@@ -78,7 +82,11 @@ public class CommandExecutor {
             } else {
                 for (String path : allpaths) {
                     for (String extension : FileUtils.windowsFileExtensions) {
-                        File temp = new File(path + System.getProperty("file.separator") + programname + "." + extension);
+                        File temp;
+                        if (FshMain.os.equals("nix"))
+                            temp = new File(path + System.getProperty("file.separator") + programname);
+                        else
+                            temp = new File(path + System.getProperty("file.separator") + programname + "." + extension);
 
                         if (temp.exists()) {
                             try {
@@ -88,8 +96,9 @@ public class CommandExecutor {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                        }
+                        } else if(FshMain.os.equals("nix")) break;
                     }
+                    if (launched) break;
                 }
             }
         }
