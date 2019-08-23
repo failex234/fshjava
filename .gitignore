@@ -9,3 +9,5 @@ fshutils.so
 fshutils.dylib
 
 .DS_Store
+
+bin/

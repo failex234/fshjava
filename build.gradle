@@ -37,5 +37,17 @@ task buildLibrary(type:Exec) {
 	commandLine 'make'
 }
 
+task buildJar(type:Jar) {
+	manifest {
+		attributes 'Main-Class': 'me.felixnaumann.fsh.FshMain'
+	}
+	baseName = "fshjava-complete"
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	with jar
+}
+
+
 build.dependsOn buildLibrary
 run.dependsOn buildLibrary
+
+runn.dependsOn build
