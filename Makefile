@@ -28,7 +28,7 @@ fshutils.so:
 	$(CC) -o fshutils.so -I ${JAVA_HOME}/include -I ${JAVA_HOME}/include/linux -shared -W -fPIC fshutils.c
 	
 fshutils.dylib:
-	$(CC) -o fshutils.dylib -I ${JAVA_HOME}/include -I {JAVA_HOME}/include/darwin -shared -W -fPIC fshutils.c
+	$(CC) -o fshutils.dylib -I ${JAVA_HOME}/include -I ${JAVA_HOME}/include/darwin -shared -W -fPIC fshutils.c
 
 checkjava:
 ifndef JAVA_HOME
