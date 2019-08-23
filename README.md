@@ -3,14 +3,18 @@ fsh is a simple shell written in java (and small parts in C)
 
 # Before Compiling
 Your System should have a C Compiler installed.
+
 On Windows you need an environment like Cygwin, MinGW or WSL (Distro doesn't matter. I recommend Ubuntu though)
+
 On GNU/Linux you just need to install the **gcc** package with your local package manager. (You may need more than that and install **build-essential** or **base-devel**)
+
 On Mac OS you need to install the clang compiler. Just type **cc** into the terminal and confirm to download it.
 
 # Compiling
 First make sure that your JAVA_HOME variable is set!
 
 Run **./gradlew build** on *nix
+
 Run **gradlew.bat build** on Windows
 
 After a successful build you should have a functioning jar in build/libs/fshjava-complete.jar (Currently the jar is missing the library. Make sure to have to library in your current working directory when you run the jar!)
