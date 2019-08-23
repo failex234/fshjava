@@ -1,6 +1,11 @@
-.idea/
-out/
-.vscode/
-*.iml
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+
 fshutils.dll
 fshutils.so
+fshutils.dylib
+
+.DS_Store
