@@ -12,7 +12,7 @@ endif
 
 nix: checkjava
 ifndef OS
-ifeq ($UNAME_S), Darwin)
+ifeq ($(UNAME_S), Darwin)
 	@echo Detected Mac OS
 	@make fshutils.dylib
 else
