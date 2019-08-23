@@ -4,7 +4,7 @@ fsh is a simple shell written in java
 # Compiling
 First make sure that your JAVA_HOME variable is set!
 
-For **Windows**, **GNU/Linux** and **Mac OS* just type `make` to compile the shared library for your OS.
+For **Windows**, **GNU/Linux** and **Mac OS** just type `make` to compile the shared library for your OS.
 
 For ***NIX** and **other OS's** there is no make recipe so you need to issue the command:
 `cc -o fshutils.so -I ${JAVA_HOME}/include -I ${JAVA_HOME}/include/YOURSYSTEMINCLUDE -shared -W fshutils.c`
