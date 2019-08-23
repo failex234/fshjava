@@ -2,13 +2,13 @@
 fsh is a simple shell written in java (and small parts in C)
 
 # Before Compiling
-Your System should have a C Compiler installed.
+Your System should have a C Compiler (gcc or clang) and make installed.
 
 On Windows you need an environment like Cygwin, MinGW or WSL (Distro doesn't matter. I recommend Ubuntu though)
 
-On GNU/Linux you just need to install the **gcc** package with your local package manager. (You may need more than that and install **build-essential** or **base-devel**)
+On GNU/Linux you just need to install the **gcc** and  **make** package with your local package manager. (You may need more than that and install **build-essential** or **base-devel**)
 
-On Mac OS you need to install the clang compiler. Just type **cc** into the terminal and confirm to download it.
+On Mac OS you need to install the clang compiler. Just type **cc** into the terminal and confirm to download the developer tools also containing make
 
 # Compiling
 First make sure that your JAVA_HOME variable is set!
