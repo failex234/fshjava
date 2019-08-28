@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="fshjava:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/fshjava_jar</output-path>
+    <root id="archive" name="fshjava.jar">
+      <element id="module-output" name="fshjava" />
+    </root>
+  </artifact>
+</component>

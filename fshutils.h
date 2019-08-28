@@ -47,6 +47,22 @@ JNIEXPORT jstring JNICALL Java_me_felixnaumann_fsh_Utils_Native_getOS
 JNIEXPORT void JNICALL Java_me_felixnaumann_fsh_Utils_Native_clearConsole
   (JNIEnv *, jclass);
 
+/*
+ * Class:     me_felixnaumann_fsh_Utils_Native
+ * Method:    getConsoleWidth
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_me_felixnaumann_fsh_Utils_Native_getConsoleWidth
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     me_felixnaumann_fsh_Utils_Native
+ * Method:    runApplication
+ * Signature: (Ljava/lang/String;Ljava/lang/String;)I
+ */
+JNIEXPORT jint JNICALL Java_me_felixnaumann_fsh_Utils_Native_runApplication
+  (JNIEnv *, jclass, jstring, jobjectArray, jobjectArray);
+
 #ifdef __cplusplus
 }
 #endif

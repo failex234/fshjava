@@ -82,4 +82,6 @@ public class Native {
     public static native String getWorkingDirectory();
     public static native String getOS();
     public static native void clearConsole();
+    public static native int getConsoleWidth();
+    public static native int runApplication(String application, String[] args, String[] env);
 }

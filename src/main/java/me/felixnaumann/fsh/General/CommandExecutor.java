@@ -5,6 +5,7 @@ import me.felixnaumann.fsh.Formatting.Variables;
 import me.felixnaumann.fsh.FshMain;
 import me.felixnaumann.fsh.Utils.FileUtils;
 import me.felixnaumann.fsh.Utils.GeneralUtils;
+import me.felixnaumann.fsh.Utils.Native;
 
 import java.io.File;
 import java.io.IOException;
@@ -109,12 +110,19 @@ public class CommandExecutor {
 
     }
 
-    private static void launchProgram(String programpath, String[] args) throws IOException {
-        ProcessBuilder pb = new ProcessBuilder(programpath);
-        List<String> pbargs = new ArrayList<>(Arrays.asList(args));
-        pbargs.add(0, programpath);
-        pb.command(pbargs);
-        pb.start();
+    private static int launchProgram(String programpath, String[] args) throws IOException {
+        String[] newargs = new String[args.length + 1];
+        newargs[0] = GeneralUtils.getProgramNameFromPath(programpath);
+
+        for (int i = 1; i < args.length; i++) {
+            newargs[i - 1] = args[i]; 
+        }
+
+        String[] env = new String[]{"HOME=" + Variables.getVar("HOME"), "PATH=" + Variables.getVar("PATH"), "USER=" + Variables.getVar("USER"), "SHELL=" + Variables.getVar("SHELL"), "TERM=" + Variables.getVar("TERM")};
+
+        //TODO Fix JVM Crash when running with arguments !important
+
+        return Native.runApplication(programpath, newargs, env);
     }
 
     public static boolean isBuiltInProgram(String cmdname) {

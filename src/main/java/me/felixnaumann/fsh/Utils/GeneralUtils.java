@@ -3,6 +3,9 @@ package me.felixnaumann.fsh.Utils;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Map;
+
+import me.felixnaumann.fsh.FshMain;
 
 public class GeneralUtils {
     public static String getHostname() {
@@ -105,6 +108,21 @@ public class GeneralUtils {
 
         return escaped;
 
+    }
+
+    public static String getProgramNameFromPath(String path) {
+        String separator = System.getProperty("file.separator");
+
+        int idx = path.lastIndexOf(separator) + 1;
+        return path.substring(idx);
+    }
+
+    public static String getEnvironmentVariable(String var) {
+        Map<String, String> env = System.getenv();
+
+        String search = env.get(var);
+
+        return search == null ? "" : search;
     }
 
 }

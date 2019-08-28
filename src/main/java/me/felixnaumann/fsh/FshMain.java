@@ -21,7 +21,7 @@ public class FshMain {
     public static String os = "";
 
     public static void main(String[] args) {
-        os = System.getProperty("file.separator").equals("/") ? "nix" : "win";
+        os = System.getProperty("file.separator").equals("/") ? "nix" : System.getProperty("file.separator").equals("\\") ? "win" : "unknown";
         if (args.length != 0) {
             switch (args[0]) {
                 case "--debug":
@@ -46,12 +46,15 @@ public class FshMain {
         }
         klasse = new Commands();
         vars = new HashMap<>();
-        if (os.equals("nix")) {
-            vars.put("PATH", "/bin:/usr/bin:/sbin:/usr/sbin");
-        } else {
-            vars.put("PATH", "C:\\Windows;C:\\Windows\\System32");
-        }
-        vars.put("PS1", "[\\u@\\h \\w]\\$ ");
+
+        //Set the most important environment variables
+        vars.put("PATH", GeneralUtils.getEnvironmentVariable("PATH"));
+        vars.put("PS1", GeneralUtils.getEnvironmentVariable("PS1"));
+        vars.put("USER", GeneralUtils.getEnvironmentVariable("USER"));
+        vars.put("HOME", GeneralUtils.getEnvironmentVariable("HOME"));
+        vars.put("TERM", GeneralUtils.getEnvironmentVariable("TERM"));
+        vars.put("UID", GeneralUtils.getEnvironmentVariable("UID"));
+        vars.put("SHELL", "fsh");
 
         String input = "";
         Scanner scanner = new Scanner(System.in);

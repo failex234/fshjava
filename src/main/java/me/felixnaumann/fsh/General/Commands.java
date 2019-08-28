@@ -160,6 +160,13 @@ public class Commands {
         return 0;
     }
 
+    public int _width(String[] args) {
+        int size = Native.getConsoleWidth();
+        System.out.printf("%d\n", size);
+
+        return 0;
+    }
+
     public void F_usage(String prgname) {
         String[] descs;
         switch (prgname) {

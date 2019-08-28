@@ -50,4 +50,3 @@ task buildJar(type:Jar) {
 build.dependsOn buildLibrary
 run.dependsOn buildLibrary
 
-runn.dependsOn build

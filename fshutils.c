@@ -14,6 +14,8 @@
 
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/ioctl.h>
+#include <sys/wait.h>
 
 #endif
 
@@ -166,5 +168,95 @@ JNIEXPORT void JNICALL Java_me_felixnaumann_fsh_Utils_Native_clearConsole(JNIEnv
 	#else
 		puts("\033[H\033[2J");
 		fflush(stdout);
+	#endif
+}
+
+int getCursorPosition() {
+	int rows, cols;
+	char buf[32];
+	uint i = 0;
+
+	if (write(STDOUT_FILENO, "\x1b[6n", 4) != 4) return -1;
+
+	while (i < sizeof(buf) - 1) {
+        if (read(STDIN_FILENO, &buf[i], 1) != 1) {
+                break;
+        }
+        if (buf[i] == 'R') {
+                break;
+        }
+        i++;
+    }
+
+	buf[i] = '\0';
+
+	if (buf[0] != '\x1b' || buf[1] != '[') {
+        return -1;
+    }
+
+	if (sscanf(&buf[2], "%d;%d", &rows, &cols) != 2) {
+        return -1;
+    }
+
+    return cols;
+
+}
+
+JNIEXPORT jint JNICALL Java_me_felixnaumann_fsh_Utils_Native_getConsoleWidth(JNIEnv *env, jclass clazz) {
+	#ifdef __WIN32
+		CONSOLE_SCREEN_BUFFER_INFO csbi;
+		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+
+		return csbi.srWindow.Right - csbi.srWindow.Left + 1;
+	#else
+		struct winsize ws;
+
+		if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == -1 || ws.ws_col == 0) {
+			if (write(STDOUT_FILENO, "\x1b[999C\x1b[999B", 12) != 12) {
+				return -1;
+			}
+			return getCursorPosition();
+		} else {
+			return ws.ws_col;
+		}
+	#endif
+}
+
+JNIEXPORT jint JNICALL Java_me_felixnaumann_fsh_Utils_Native_runApplication(JNIEnv *env, jclass clazz, jstring application, jobjectArray argsptr, jobjectArray envptr) {
+	char *application_ptr = (*env)->GetStringUTFChars(env, application, 0);
+	#ifdef __WIN32
+
+	#else
+		pid_t pid = fork();
+
+		if (pid == 0) {
+			int argcount = (*env)->GetArrayLength(env, argsptr);
+			char *args[argcount + 1];
+
+			for (int i = 0; i < argcount; i++) {
+				jstring tempstr = (jstring) ((*env)->GetObjectArrayElement(env, argsptr, i));
+				args[i] = (*env)->GetStringUTFChars(env,tempstr, 0);
+			}
+			args[argcount] = NULL;
+
+			if (envptr) {
+				int envlen = (*env)->GetArrayLength(env, envptr);
+				char *envptr_arr[envlen + 1];
+
+				for (int i = 0; i < envlen; i++) {
+					jstring tempstr = (jstring) ((*env)->GetObjectArrayElement(env, envptr, i));
+					envptr_arr[i] = (*env)->GetStringUTFChars(env, tempstr, 0);
+				}
+
+				execve(application_ptr, args, envptr_arr);
+			} else {
+				execve(application_ptr, args, NULL);
+			}
+		} else {
+			int status;
+			waitpid(pid, &status, 0);
+
+			return status;
+		}
 	#endif
 }
