@@ -11,3 +11,5 @@ fshutils.dylib
 .DS_Store
 
 bin/
+.idea/
+out/
