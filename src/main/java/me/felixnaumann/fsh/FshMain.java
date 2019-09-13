@@ -13,11 +13,12 @@ import static me.felixnaumann.fsh.General.MainShell.lastRet;
 
 public class FshMain {
 
-    private static final String VERSION = "0.3.4";
+    private static final String VERSION = "0.3.5";
 
     public static Commands klasse;
     public static HashMap<String, String> vars;
     public static boolean debug = false;
+    public static boolean noenv = false;
     public static String os = "";
 
     public static void main(String[] args) {
@@ -32,6 +33,7 @@ public class FshMain {
                     System.out.println("fsh is a shell written in java. aiming to be very similar to bash");
                     System.out.print("\n");
                     System.out.println("--debug\t\t- enable debug mode");
+                    System.out.println("--no-env\t- don't get PS1 and PATH from the current environment (if possible)");
                     System.out.println("--help\t\t- show this menu");
                     System.out.println("--version\t- show version information");
                     System.out.println("\nThis program is licensed under the MIT license");
@@ -39,8 +41,11 @@ public class FshMain {
                     System.exit(0);
                     break;
                 case "--version":
-                    System.out.printf("fsh version %s by Felix Naumann (failex234)\n", VERSION);
+                    System.out.printf("fsh version %s written by Felix Naumann (failex234)\n", VERSION);
                     System.exit(0);
+                    break;
+                case "--no-env":
+                    noenv = true;
                     break;
             }
         }
@@ -48,8 +53,10 @@ public class FshMain {
         vars = new HashMap<>();
 
         //Set the most important environment variables
-        vars.put("PATH", GeneralUtils.getEnvironmentVariable("PATH"));
-        vars.put("PS1", GeneralUtils.getEnvironmentVariable("PS1"));
+        String PATH = noenv ? "" : GeneralUtils.getEnvironmentVariable("PATH");
+        String PS1 = noenv ? "" : GeneralUtils.getEnvironmentVariable("PS1");
+        vars.put("PATH", PATH.isEmpty() ? GeneralUtils.getSystemPath() : GeneralUtils.getEnvironmentVariable("PATH"));
+        vars.put("PS1", PS1.isEmpty() ? "[\\u@\\h \\w]\\$ " : GeneralUtils.getEnvironmentVariable("PS1"));
         vars.put("USER", GeneralUtils.getEnvironmentVariable("USER"));
         vars.put("HOME", GeneralUtils.getEnvironmentVariable("HOME"));
         vars.put("TERM", GeneralUtils.getEnvironmentVariable("TERM"));

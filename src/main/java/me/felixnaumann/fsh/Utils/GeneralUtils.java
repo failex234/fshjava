@@ -125,4 +125,11 @@ public class GeneralUtils {
         return search == null ? "" : search;
     }
 
+    public static String getSystemPath() {
+        if (FshMain.os.equals("nix")) {
+            return "/bin:/usr/bin:/sbin:/usr/sbin";
+        }
+        return "C:\\Windows;C:\\Windows\\System32";
+    }
+
 }
